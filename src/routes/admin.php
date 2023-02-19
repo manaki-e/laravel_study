@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Auth\PasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\OwnersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::resource('owners', OwnersController::class)->middleware('auth:admin');
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
